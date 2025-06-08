@@ -2,14 +2,14 @@ from dataclasses import dataclass
 
 from pydantic_graph import BaseNode, GraphRunContext, End
 
-from src.models import MyUsage, AgentName, Unit, DistilledUnit
-from src.agents import AgentRegistry
-from src.nodes.section_distiller import SectionDistillerNode
-from src._utils import update_usage
+from models import MyUsage, AgentName, Unit, DistilledUnit
+from agents._agent_registry import AgentRegistry
+from nodes.section_distiller import SectionDistillerNode
+from _utils import update_usage
 
 from typing import Any
 
-from src._utils import task_group_gather
+from _utils import task_group_gather
 
 @dataclass
 class DocParserNode(BaseNode[MyUsage, None, Any]):

@@ -1,25 +1,28 @@
+import argparse
 import asyncio
-import json
-
+import time
 from pydantic_graph import Graph
+from agents._agent_registry import AgentRegistry
+from agents.doc_parser_agent import create_doc_parser_agent
+from models import MyUsage
+from nodes import SectionDistillerNode, DocParserNode
 
-from src.nodes import SectionDistillerNode, DocParserNode
-from src.models import MyUsage
-from src.nodes.single_distiller import SingleDistillerNode
+parser = argparse.ArgumentParser()
+parser.add_argument("--model", type=str, default="llama3", help="Ollama model to use")
+args = parser.parse_args()
 
-sample = "...Your sample"
+AgentRegistry._agents.clear()  # Optional: Reset any previously registered agents
+AgentRegistry._agents["doc_parser_agent"] = create_doc_parser_agent(model_name=args.model)
 
-
+sample = r"C:\Users\talha\myprojects\graph-builder-agent\src\data\docs.pdf"
 graph = Graph(nodes=[DocParserNode, SectionDistillerNode])
-state=MyUsage()
+state = MyUsage()
 
 async def main():
-    import time
     s = time.perf_counter()
     result = await graph.run(DocParserNode(sample), state=state)
-    # result = await graph.run(DocParserNode(sample), state=state)
-    print(result)
-    print("=========")
-    print(result.state)
-    print("Runtime:", time.perf_counter() - s)
+    print("Final Output:\n", result)
+    print("Graph State:\n", result.state)
+    print("Time Taken:", time.perf_counter() - s)
+
 asyncio.run(main())

@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 import anyio
 
-from src.models import MyUsage
+from models import MyUsage
 
 T = TypeVar("T")
 

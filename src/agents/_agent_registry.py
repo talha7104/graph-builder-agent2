@@ -1,7 +1,7 @@
 from pydantic_ai import Agent
 from typing import Callable
 
-from src.models import AgentName
+from models import AgentName
 
 class AgentRegistry:
     _agents: dict[AgentName, Agent] = {}

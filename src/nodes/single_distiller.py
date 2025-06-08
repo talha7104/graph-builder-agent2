@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from src.models import MyUsage, AgentName
-from src.agents._agent_registry import AgentRegistry
+from models import MyUsage, AgentName
+from agents._agent_registry import AgentRegistry
 from pydantic_graph import BaseNode, End, GraphRunContext
 
 

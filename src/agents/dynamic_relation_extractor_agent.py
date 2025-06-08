@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from src.agents.prompts import DYNAMIC_RELATION_EXTRACTOR_PROMPT
+from agents.prompts import DYNAMIC_RELATION_EXTRACTOR_PROMPT
 from pydantic_ai import Agent
 
 from typing import List

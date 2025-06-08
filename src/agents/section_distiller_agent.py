@@ -1,6 +1,6 @@
 from ._agent_registry import AgentRegistry
-from src.models import AgentName, Section
-from src.agents.prompts import SECTION_DISTILLER_AGENT
+from models import AgentName, Section
+from agents.prompts import SECTION_DISTILLER_AGENT
 from pydantic_ai import Agent
 
 from ._base import ollama_model

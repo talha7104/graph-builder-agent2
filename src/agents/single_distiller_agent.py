@@ -1,6 +1,6 @@
 from ._agent_registry import AgentRegistry
-from src.models import AgentName, DistilledUnit
-from src.agents.prompts import SINGLE_DISTILLER_AGENT
+from models import AgentName, DistilledUnit
+from agents.prompts import SINGLE_DISTILLER_AGENT
 from pydantic_ai import Agent
 
 from ._base import ollama_model

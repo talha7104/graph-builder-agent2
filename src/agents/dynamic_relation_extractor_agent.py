@@ -12,7 +12,7 @@ def create_dynamic_relation_extractor_agent(
 )->Agent:
     relation_extractor_agent = Agent(
             name="relation_extractor_agent",
-            model=ollama_model,
+            model=ollama_model(),
             retries=5,
             output_type=List[relation_model],
             system_prompt=DYNAMIC_RELATION_EXTRACTOR_PROMPT.format(mentions=mention_strings)

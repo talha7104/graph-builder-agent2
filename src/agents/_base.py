@@ -1,22 +1,34 @@
 import httpx
 
-class OllamaModel:
-    def __init__(self, model_name: str = "llama3", base_url="http://localhost:11434"):
-        self.model_name = model_name
-        self.base_url = base_url
+from pydantic_ai.models.function import FunctionModel
+from pydantic_ai.models import ModelResponse
+from pydantic_ai.messages import TextPart, ModelMessage, ModelRequest
+from pydantic_ai.usage import Usage
 
-    async def request(self, prompt: str) -> str:
+
+class OllamaFunctionModel(FunctionModel):
+    """`FunctionModel` wrapper for calling a local Ollama instance."""
+
+    _system: str = "ollama"
+
+
+def ollama_model(model_name: str = "llama3", base_url: str = "http://localhost:11434") -> OllamaFunctionModel:
+    async def _call(messages: list[ModelMessage], _info) -> ModelResponse:
+        prompt_parts: list[str] = []
+        for message in messages:
+            if isinstance(message, ModelRequest):
+                for part in message.parts:
+                    content = getattr(part, "content", None)
+                    if isinstance(content, str):
+                        prompt_parts.append(content)
+        prompt = "\n".join(prompt_parts)
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                f"{self.base_url}/api/generate",
-                json={
-                    "model": self.model_name,
-                    "prompt": prompt,
-                    "stream": False
-                }
+                f"{base_url}/api/generate",
+                json={"model": model_name, "prompt": prompt, "stream": False},
             )
             data = response.json()
-            return data.get("response", "No response received from Ollama.")
+            reply = data.get("response", "No response received from Ollama.")
+        return ModelResponse(parts=[TextPart(reply)], usage=Usage(), model_name=f"ollama:{model_name}")
 
-def ollama_model(model_name="llama3"):
-    return OllamaModel(model_name=model_name)
+    return OllamaFunctionModel(function=_call, model_name=f"ollama:{model_name}")

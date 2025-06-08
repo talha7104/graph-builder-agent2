@@ -2,8 +2,9 @@ from dataclasses import dataclass
 
 from pydantic_graph import BaseNode, GraphRunContext, End
 
-from models import MyUsage, AgentName, Section, SectionContent, Mention, build_dynamic_relation_model
+from models import MyUsage, AgentName, Section, SectionContent, build_dynamic_relation_model
 from agents._agent_registry import AgentRegistry
+from agents.dynamic_relation_extractor_agent import create_dynamic_relation_extractor_agent
 from _utils import update_usage
 
 from typing import Any

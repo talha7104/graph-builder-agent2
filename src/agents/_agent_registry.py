@@ -8,7 +8,7 @@ class AgentRegistry:
 
     @classmethod
     def register(cls, agent_name: AgentName):
-        """A decorator to automatically register agent"""
+        """A decorator to automatically register an agent."""
 
         def decorator(func: Callable) -> Callable:
             cls._agents[agent_name] = func()

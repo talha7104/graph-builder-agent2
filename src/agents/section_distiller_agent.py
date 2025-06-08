@@ -9,7 +9,7 @@ from ._base import ollama_model
 def create_section_distiller_agent() -> Agent:
     agent = Agent(
         name=AgentName.section_distiller_agent.value,
-        model=ollama_model,
+        model=ollama_model(),
         system_prompt=SECTION_DISTILLER_AGENT,
         result_type=Section,
         retries=3

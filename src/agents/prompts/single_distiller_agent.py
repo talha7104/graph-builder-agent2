@@ -8,7 +8,7 @@ Here’s what to extract:
 1. **DistilledUnit**:
    - `title`: A short, informative title summarizing the overall topic of the document.
    - `summary`: A concise overview of the entire document (150–300 words). Highlight the most important people, places, events, time periods, and organizations.
-   - `sections`: A list of `Section` object (in order) in the unit document.
+   - `sections`: A list of `Section` objects (in order) in the unit document.
 
 2. **Sections**: Divide the document into logical sections (based on thematic or narrative shifts). For each section, extract:
    - `title`: A short title representing the focus of the section.
